@@ -3,10 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QA Portfolio</title>
+  <title>Amol Dhawale | QA Automation Engineer</title>
 
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <script src="https://kit.fontawesome.com/7a4b62b0a4.js" crossorigin="anonymous"></script>
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
@@ -78,7 +81,8 @@
 
     .btn {
       display: inline-block;
-      margin-top: 25px;
+      margin-top: 20px;
+      margin-right: 10px;
       padding: 12px 25px;
       border-radius: 30px;
       background: linear-gradient(90deg, #38bdf8, #6366f1);
@@ -91,6 +95,15 @@
       transform: scale(1.05);
       box-shadow: 0 0 20px rgba(56,189,248,0.5);
     }
+
+    .social-icons a {
+      margin-right: 15px;
+      font-size: 1.5rem;
+      color: #38bdf8;
+      transition: 0.3s;
+    }
+
+    .social-icons a:hover { color: #818cf8; }
 
     .glass {
       background: rgba(255,255,255,0.05);
@@ -167,14 +180,25 @@
 <section class="hero">
   <h2>QA Automation Engineer</h2>
   <div class="typing" id="typing"></div>
-  <a href="#projects" class="btn">View My Work</a>
+
+  <div>
+    <!-- Resume download -->
+    <a href="resume.pdf" download class="btn">Download Resume</a>
+    <a href="#projects" class="btn">View My Work</a>
+  </div>
+
+  <!-- Social Icons -->
+  <div class="social-icons" style="margin-top:20px;">
+    <a href="https://linkedin.com/in/YOUR-LINKEDIN" target="_blank"><i class="fab fa-linkedin"></i></a>
+    <a href="https://github.com/amd7030" target="_blank"><i class="fab fa-github"></i></a>
+  </div>
 </section>
 
 <section id="about">
   <h2 class="section-title">About Me</h2>
   <div class="glass">
     <p>
-      QA Engineer with strong expertise in Manual Testing,Automation Testing with Selenium, Java, TestNG.
+      QA Engineer with strong expertise in Manual Testing, Automation Testing with Selenium, Java, TestNG.
       I design scalable automation frameworks and ensure software reliability through rigorous testing strategies.
     </p>
   </div>
@@ -206,10 +230,10 @@
 <section id="contact">
   <h2 class="section-title">Contact</h2>
   <div class="glass">
-    <form onsubmit="handleSubmit(event)">
-      <input type="text" placeholder="Your Name" required />
-      <input type="email" placeholder="Your Email" required />
-      <textarea placeholder="Your Message" required></textarea>
+    <form id="contact-form">
+      <input type="text" name="user_name" placeholder="Your Name" required />
+      <input type="email" name="user_email" placeholder="Your Email" required />
+      <textarea name="message" placeholder="Your Message" required></textarea>
       <button type="submit">Send Message</button>
     </form>
     <p id="msg"></p>
@@ -220,7 +244,25 @@
   <p>© 2026 QA Portfolio | Built with ❤</p>
 </footer>
 
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
 <script>
+  (function(){
+    emailjs.init("YOUR_PUBLIC_KEY");
+  })();
+
+  document.getElementById("contact-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    emailjs.sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", this)
+      .then(function() {
+        document.getElementById('msg').innerText = "Message sent successfully!";
+      }, function(error) {
+        document.getElementById('msg').innerText = "Failed to send message.";
+      });
+  });
+
   const text = [
     "Selenium Automation Expert",
     "API Testing Specialist",
@@ -228,14 +270,10 @@
     "Manual & Automation QA"
   ];
 
-  let i = 0;
-  let j = 0;
-  let currentText = "";
-  let isDeleting = false;
+  let i = 0, j = 0, currentText = "", isDeleting = false;
 
   function type() {
     currentText = text[i];
-
     if (!isDeleting) {
       document.getElementById("typing").innerHTML = currentText.substring(0, j++);
       if (j > currentText.length) {
@@ -254,11 +292,6 @@
   }
 
   type();
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    document.getElementById('msg').innerText = "Message sent successfully!";
-  }
 </script>
 
 </body>
